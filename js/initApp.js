@@ -22,17 +22,24 @@ $(document).ready(function(){
     console.log("sending...");
     var frmMsg=pulseJS.getFormsElements('frmMsg');
     var isValid=pulseJS.validateForms(frmMsg);
-    $('#modalMsg').closeModal();
-    $("#frmMsg")[0].reset();
-    pulseJS.callAjax('messages','POST',frmMsg,'json',function(data,status){
-      if(data.errorCode==0){
-        Materialize.toast('Gracias por tus comentarios!', 4000);
-      }else if(data.errorCode>0){
-        Materialize.toast('Ops!, Ocurrio un error al enviar tu mensaje', 4000);
-      }else{
-        Materialize.toast('Ops!, Ocurrio un error, Estas conectado a internet?', 4000);
-      }
-    });
+
+    if(isValid){
+      $('#modalMsg').closeModal();
+      $("#frmMsg")[0].reset();
+
+      pulseJS.callAjax('messages','POST',frmMsg,'json',function(data,status){
+        if(data.errorCode==0){
+          Materialize.toast('Gracias por tus comentarios!', 4000);
+        }else if(data.errorCode>0){
+          Materialize.toast('Ops!, Ocurrio un error al enviar tu mensaje', 4000);
+        }else{
+          Materialize.toast('Ops!, Ocurrio un error, Estas conectado a internet?', 4000);
+        }
+      });
+      
+    }else{
+      Materialize.toast('Escribe tu nombre y un mensaje...', 4000);
+    }
   });
 
   // pulseJS config
