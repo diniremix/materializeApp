@@ -18,9 +18,29 @@ $(document).ready(function(){
   $('.materialboxed').materialbox();
 
   //submit message
-  $( "#frmMsg" ).submit(function( event ) {
-    $('#modal2').closeModal();
+  $( "#action" ).click(function( e ) {
     console.log("sending...");
+    var frmMsg=pulseJS.getFormsElements('frmMsg');
+    var isValid=pulseJS.validateForms(frmMsg);
+    $('#modalMsg').closeModal();
+    $("#frmMsg")[0].reset();
+    pulseJS.callAjax('messages','POST',frmMsg,'json',function(data,status){
+      if(data.errorCode==0){
+        Materialize.toast('Gracias por tus comentarios!', 4000);
+      }else if(data.errorCode>0){
+        Materialize.toast('Ops!, Ocurrio un error al enviar tu mensaje', 4000);
+      }else{
+        Materialize.toast('Ops!, Ocurrio un error, Estas conectado a internet?', 4000);
+      }
+    });
+  });
+
+  // pulseJS config
+  pulseJS.config({
+    url_base:'pulsePHP/api/v1/',
+    token_name:'public_key',
+    public_key_token:'',
+    data_request:'jsonData'
   });
 
 });
