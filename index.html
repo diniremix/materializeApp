@@ -1,207 +1,117 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
+
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/app.css">
     <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  </head>
-  <body>
-    <!-- sideNav -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+
+<body>
+    <!-- Dropdown Structure -->
     <nav>
       <div class="nav-wrapper red">
-        <a href="#!" class="brand-logo center">MaterializeApp</a>
-        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-        <ul class="right">
-          <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="mdi-navigation-more-vert"></i></a></li>
-          <ul id='dropdown1' class='dropdown-content'>
-            <li><a class="modal-trigger" href="#modalAbout">Acerca de</a></li>
+          <a href="#!" class="brand-logo center">Materialize App orig</a>
+          <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+          <ul class="right">
+              <li>
+                <a href="#!">
+                  <i class="material-icons">search</i>
+                  </a>
+              </li>
+              <li>
+                <a class="dropdown-button" href="#!" data-activates="dropdown1">
+                  <i class="material-icons">more_vert</i>
+                  </a>
+              </li>
           </ul>
-        </ul>
-        <ul class="side-nav " id="mobile-demo">
-          <li>
-            <img class="materialboxed" width="250" src="img/office.jpg">
-          </li>
-          <li><a href="#!">Mensajes</a></li>
-          <li><a class="modal-trigger" href="#modalAbout">Acerca de</a></li>
-        </ul>
+          <ul id="dropdown1" class="dropdown-content">
+              <li><a href="#!">Perfil</a></li>
+              <li><a href="#!">Limpiar mapa</a></li>
+              <li class="divider"></li>
+              <li><a href="#!">Acerca de</a></li>
+          </ul>
+          <ul id="slide-out" class="side-nav">
+              <li>
+                  <div class="userView">
+                      <div class="background">
+                          <img src="img/material-wall2.jpg">
+                      </div>
+                      <a href="#!user"><img class="circle" src="img/me2.jpg"></a>
+                      <a href="#!name"><span class="white-text name">Jorge Brunal</span></a>
+                      <a href="#!email"><span class="white-text email">diniremix@gmail.com</span></a>
+                  </div>
+              </li>
+              <li><a href="#!"><i class="material-icons">account_circle</i>Perfil</a></li>
+              <li><a href="#!"><i class="material-icons">supervisor_account</i>Gestion de Usuarios</a></li>
+              <li><a href="#!"><i class="material-icons">search</i>Consultas</a></li>
+              <li><a href="#!"><i class="material-icons">equalizer</i>Filtros</a></li>
+              <li><a href="#!"><i class="material-icons">terrain</i>Areas</a></li>
+              <li><a href="#!"><i class="material-icons">visibility</i>Visualizacion</a></li>
+              <li><a href="#!"><i class="material-icons">cloud_upload</i>Geo clientes</a></li>
+              <li><a href="#!"><i class="material-icons">layers_clear</i>Limpiar mapa</a></li>
+              <li><a href="#!"><i class="material-icons">location_on</i>Ubicacion actual</a></li>
+              <li><a href="#!"><i class="material-icons">cloud_download</i>Exportar</a></li>
+              <li><a href="#!"><i class="material-icons">settings_power</i>Salir</a></li>
+              <!--
+              <li>
+                  <div class="divider"></div>
+              </li>
+              <li><a class="subheader">Subheader</a></li>
+              <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+              -->
+          </ul>
       </div>
     </nav>
-    <!-- sideNav -->
 
-    <!-- container intro -->
-    <div class="container">
-      <p> <br> </p>
-      <p>
-       Creado y diseñado por <strong>Google</strong>, <strong>Material Design</strong> es un lenguaje de diseño que combina los principios clásicos del diseño exitoso junto con la innovación y la tecnología. El objetivo de Google consiste en desarrollar un sistema de diseño que permite una experiencia de usuario unificada a través de todos sus productos en cualquier plataforma.
-      </p>
-      <blockquote>
-        "Lo verdadero no siempre es verosímil."
-      </blockquote>
-      <p class="flow-text"><strong>Nicolás Boileau</strong></p>
-      <p>
-    </div>
-    <!-- container intro -->
-
-    <!-- container Cards -->
-    <div class="container">
-      <div class="card medium">
-        <div class="card-image waves-effect waves-block waves-light">
-          <img class="activator" src="img/office.jpg">
-        </div>
-        <div class="card-content">
-          <span class="card-title activator grey-text text-darken-4">Material es la metáfora<i class="mdi-navigation-more-vert right"></i></span>
-           <p>presiona la imagen para saber más...
-          </p> 
-        </div>
-        <div class="card-reveal">
-          <span class="card-title grey-text text-darken-4">Material es la metáfora <i class="mdi-navigation-close right"></i></span>
-          <p>La metáfora de material define la relación entre el espacio y el movimiento. La idea es que la tecnología es inspirada en el papel y la tinta y se utiliza para facilitar la creatividad y la innovación. Las superficies y los bordes proporcionan indicaciones visuales familiares que permiten a los usuarios comprender rápidamente la tecnología más allá del mundo físico.</p>
-        </div>
+     <!--start container-->
+  <div class="container">
+    <div class="section">
+      <div id="contact-page" class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <div id="map-canvas" name="map-canvas" class="map-canvas" data-lat="40.747688" data-lng="-74.004142"></div>
+          </div>
+          <div class="card-content">
+              <a class="btn-floating halfway-fab waves-effect waves-light blue"><i class="material-icons">navigation</i></a>
+          </div>
+          <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Company Name LLC <i class="mdi-navigation-close right"></i></span>
+              <p>Here is some more information about this card.</p>
+              <p><i class="mdi-communication-email cyan-text text-darken-2"></i> support@geekslabs.com</p>
+          </div>
       </div>
     </div>
+  </div>
+  <!--end container-->
 
-    <div class="container">
-      <div class="card medium">
-        <div class="card-image waves-effect waves-block waves-light">
-          <img class="activator" src="img/e1e8a292dfc618fe6f340cac498f359a.jpg">
-        </div>
-        <div class="card-content">
-          <span class="card-title activator grey-text text-darken-4">Intrépido, gráfico, intencional<i class="mdi-navigation-more-vert right"></i></span>
-           <p>presiona la imagen para saber más...
-          </p> 
-        </div>
-        <div class="card-reveal">
-          <span class="card-title grey-text text-darken-4">Intrépido, gráfico, intencional<i class="mdi-navigation-close right"></i></span>
-          <p>Elementos y componentes tales como cuadriculas, tipografía, color y las imágenes no sólo son visualmente agradables, sino que también crean un sentido de jerarquía, significado y enfoque. Con énfasis en diferentes acciones y componentes crean una guía visual para los usuarios.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="card medium">
-        <div class="card-image waves-effect waves-block waves-light">
-          <img class="activator" src="img/3511309630_4aee282a40_b.jpg">
-        </div>
-        <div class="card-content">
-          <span class="card-title activator grey-text text-darken-4">El movimiento proporciona significado<i class="mdi-navigation-more-vert right"></i></span>
-           <p>presiona la imagen para saber más...
-          </p> 
-        </div>
-        <div class="card-reveal">
-          <span class="card-title grey-text text-darken-4">El movimiento proporciona significado<i class="mdi-navigation-close right"></i></span>
-          <p>El movimiento permite al usuario dibujar un paralelo entre lo que ven en la pantalla y en la vida real. Al proporcionar tanto la retroalimentación y la familiaridad, lo que permite al o la usuario sumergirse completamente en tecnología desconocida. El movimiento posee consistencia y continuidad, además de dar a los usuarios la información subconsciente adicional sobre objetos y transformaciones.</p>
-        </div>
-      </div>
-    </div>
-    <!-- container Cards -->
-
-    <!-- slider -->
-    <div class="container">
-      <div class="slider">
-        <ul class="slides">
-          <li>
-            <img src="img/office.jpg"> <!-- random image -->
-            <div class="center-align">
-            </div>
-          </li>
-          <li>
-            <img src="img/e1e8a292dfc618fe6f340cac498f359a.jpg"> <!-- random image -->
-            <div class="left-align">
-            </div>
-          </li>
-          <li>
-            <img src="img/3511309630_4aee282a40_b.jpg"> <!-- random image -->
-            <div class="right-align">
-            </div>
-          </li>
+    <!-- Floating button for messages -->
+    <div class="fixed-action-btn" style="bottom: 200px; right: 24px;">
+        <a href="#modalMsg" class="btn-floating waves-effect waves-light btn-large red modal-trigger">
+            <i class="large material-icons">mode_edit</i>
+        </a>
+        <ul>
+            <li><a class="btn-floating red"><i class="material-icons">location_on</i></a></li>
+            <li><a class="btn-floating yellow darken-1"><i class="material-icons">search</i></a></li>
+            <li><a class="btn-floating green"><i class="material-icons">layers_clear</i></a></li>
+            <li><a class="btn-floating blue"><i class="material-icons">account_circle</i></a></li>
         </ul>
-      </div>
     </div>
-    <!-- slider -->
 
-    <!-- Modal about -->
-    <div id="modalAbout" class="modal">
-      <div class="modal-content">
-        <h4>Material Design</h4>
-        <p>
-          El objetivo de <strong>Google</strong> consiste en desarrollar un sistema de diseño que permite una experiencia de usuario unificada a través de todos sus productos en cualquier plataforma.</p>
-        <p>
-          La mayor parte del contenido aquí descrito ha sido tomado de el sitio web de <a href="http://materializecss.com/" target="_blank">Materialize CSS</a>
-        </p>
-        <p>
-          Las imagenes, tomadas del sitio web de <a href="http://materializecss.com/" target="_blank">Materialize CSS</a> y de <a href="https://500px.com/">500px</a> 
-        </p>
-        <p>
-          Algunas de ellas tienen licencias <strong>Creative Commons</strong> <a href="http://creativecommons.org/licenses/by-nc/4.0"> CC BY-NC</a>
-        </p>
-        <p>
-          <strong>MaterializeApp</strong> es Software de código abierto, bajo la licencia <strong><a href="http://opensource.org/licenses/MIT"></a>MIT.</a></strong>
-        </p>
-        <p>
-          <strong>Contacto:</strong><a href="https://github.com/diniremix"> Diniremix on GitHub</a>
-        </p>
-        <p>
-          <a class="btn-floating waves-effect waves-light red" href="https://github.com/diniremix/materializeApp" target="_blank">
-            <i class="large mdi-file-cloud-download"></i>
-          </a>
-          <a class="btn-floating waves-effect waves-light blue" href="https://twitter.com/diniremix" target="_blank">
-            <i class="large mdi-social-share"></i>
-          </a>
-        </p>
-      </div>
-      <div class="modal-footer">
-        <a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Aceptar</a>
-      </div>
-    </div>
-    <!-- Modal about -->
-
-    <!-- Modal messages -->
-    <div id="modalMsg" class="modal">
-      <div class="modal-content">
-        <h6>Dejanos tu comentario</h6>
-        <div class="row">
-          <form id="frmMsg" name="frmMsg" class="col s12">
-            <div class="row">
-              <div class="input-field col s12">
-                <i class="mdi-action-account-circle prefix"></i>
-                <input id="icon_prefix" name="icon_prefix" type="text" class="validate" required>
-                <label for="icon_prefix">Nombre</label>
-              </div>
-
-              <div class="input-field col s12">
-                <i class="mdi-editor-mode-edit prefix"></i>
-                <textarea id="icon_prefix2" name="icon_prefix2" class="validate materialize-textarea" length="140" required></textarea>
-                <label for="icon_prefix2">Mensaje</label>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="action" name="action" class="btn waves-effect waves-light red" >Enviar
-          <i class="mdi-content-send right"></i>
-        </button>
-      </div>
-    </div>
-    <!-- Modal messages -->
-    
-    <!-- Floating button for messages -->
-    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-      <a href="#modalMsg" class="btn-floating waves-effect waves-light btn-large red modal-trigger">
-        <i class="large mdi-editor-mode-edit"></i>
-      </a>
-    </div>
     <!-- Floating button for messages -->
 
-
-    <footer class="page-footer"></footer>
-
-    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <!--<footer class="page-footer"></footer>-->
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
+    <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry,places,visualization,weather,panoramio" async defer></script>-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAZnaZBXLqNBRXjd-82km_NO7GUItyKek&callback=initMap" defer></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="js/pulseJS.min.js"></script>
     <script type="text/javascript" src="js/initApp.js"></script>
-  </body>
+
+</body>
+
 </html>
-    
