@@ -52,8 +52,7 @@
     "screenfull": "~3.0.2",
     "datatables": "~1.10.12",
     "datatables-buttons": "~1.2.2",
-    "fastclick": "~1.0.6",
-    "fullcalendar": "~3.0.1"
+    "fastclick": "~1.0.6"
   },
   "resolutions": {
     "angular": "~1.5.8",
