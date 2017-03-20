@@ -41,7 +41,8 @@
     "js": "dist/js",
     "libs": "dist/libs",
     "shared": "dist/shared",
-    "views": "dist/views"
+    "views": "dist/views",
+    "gae": "dist/app.yaml"
   },
 
   "autoprefixerBrowsers": [

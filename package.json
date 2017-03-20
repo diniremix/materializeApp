@@ -34,6 +34,7 @@
     "gulp-csscomb": "*",
     "gulp-expect-file": "*",
     "gulp-filter": "*",
+    "gulp-gae": "*",
     "gulp-header": "*",
     "gulp-htmlmin": "*",
     "gulp-if": "*",
