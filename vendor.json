@@ -1,14 +1,22 @@
 {
-	"libs":[
-	  "bower_components/jquery/dist/jquery.min.js",
-	  "bower_components/angular/angular.min.js",
-	  "bower_components/materialize/dist/js/materialize.min.js",
-	  "src/libs/angular-materialize.js"
-	],
-	"styles":[
-		"bower_components/materialize/dist/css/materialize.min.css"
-	],
-	"fonts":[
-		"bower_components/materialize/dist/fonts"
-	]
+    "libs": [
+        "bower_components/jquery/dist/jquery.min.js",
+        "bower_components/angular/angular.js",
+        "bower_components/angular-route/angular-route.min.js",
+        "bower_components/angular-animate/angular-animate.min.js",
+        "bower_components/angular-ui-router/release/angular-ui-router.min.js",
+        "bower_components/ngstorage/ngStorage.min.js",
+        "bower_components/angular-sanitize/angular-sanitize.min.js",
+        "bower_components/angular-resource/angular-resource.min.js",
+        "bower_components/oclazyload/dist/ocLazyLoad.min.js",
+        "bower_components/angular-aria/angular-aria.min.js",
+        "bower_components/materialize/dist/js/materialize.min.js",
+        "src/libs/angular-materialize.js"
+    ],
+    "styles": [
+        "bower_components/materialize/dist/css/materialize.min.css"
+    ],
+    "fonts": [
+        "bower_components/materialize/dist/fonts"
+    ]
 }
