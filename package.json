@@ -13,7 +13,10 @@
     "frontend",
     "mobile-first"
   ],
-  "author": "@diniremix",
+  "author": {
+    "name": "@diniremix",
+    "url": "http://jorgebrunal.co"
+  },
   "license": "https://opensource.org/licenses/MIT",
   "homepage": "http://jorgebrunal.co/mobile",
   "bugs": {
@@ -29,7 +32,9 @@
     "gulp-clean-css": "*",
     "gulp-concat": "*",
     "gulp-csscomb": "*",
+    "gulp-expect-file": "*",
     "gulp-filter": "*",
+    "gulp-header": "*",
     "gulp-htmlmin": "*",
     "gulp-if": "*",
     "gulp-jshint": "*",
@@ -38,6 +43,7 @@
     "gulp-less": "*",
     "gulp-livereload": "*",
     "gulp-load-plugins": "*",
+    "gulp-minify-css": "*",
     "gulp-ng-annotate": "*",
     "gulp-notify": "*",
     "gulp-plumber": "*",
