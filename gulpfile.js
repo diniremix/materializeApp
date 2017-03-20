@@ -77,8 +77,13 @@ var paths={
 		],
 		scripts:[
 			config.source.js.main + '/main.js',
+
 			config.source.js.modules + '/**/*.module.js',
 			config.source.js.modules + '/**/*.js',
+
+			config.source.js.routers + '/**/*.module.js',
+			config.source.js.routers + '/**/*.js',
+
 			config.source.shared.js + '/**/*.js'
 		],
 		styles:{
@@ -92,7 +97,6 @@ var paths={
 var isProduction = false;
 
 // styles sourcemaps
-//var useSourceMaps = false;
 var useSourceMaps = false;
 
 gutil.log(gutil.colors.green('Starting to Gulp! Please wait...'));
@@ -113,17 +117,23 @@ gulp.task('watch', function() {
     gutil.log(gutil.colors.green('Starting watch and LiveReload...'));
 
     $.livereload.listen();
+    //watch and build index
+    gulp.watch(paths.index ,['html:index']);
     //watch and build views
-    gulp.watch(paths.index,['html:index']);
-    gulp.watch(paths.views,['html:views']);
+    gulp.watch(paths.views, ['html:views']);
     //watch and build scripts
-    gulp.watch(paths.scripts,['scripts:apps']);
+    gulp.watch(paths.scripts, ['scripts:apps']);
+    //watch and build styles
+    gulp.watch(paths.styles.css, ['styles:app']);
+    gulp.watch(paths.styles.fonts, ['fonts']);
 
     // list of source file to watch for live reload
     var watchSource = [].concat(
-      paths.index,
-      paths.views,
-      paths.scripts
+		paths.index,
+		paths.views,
+		paths.scripts,
+		paths.styles.css,
+		paths.styles.fonts
     );
 
     gulp
@@ -149,6 +159,20 @@ gulp.task('html:index', function(done){
     .pipe(gulp.dest(config.destination.index))
     .pipe( $.if(isProduction, notify({
         message: pumped('HTML Generated & Minified!'),
+        onLast: true
+    })));
+});
+
+gulp.task('html:views', function(done){
+  return gulp.src(paths.views)
+    .pipe(plumber())
+    .pipe(prettify(config.prettify))
+    .pipe(plumber())
+    .pipe( $.if(isProduction, $.htmlmin({collapseWhitespace: true}) ))
+    .pipe(plumber())
+    .pipe(gulp.dest(config.destination.views))
+    .pipe( $.if(isProduction, notify({
+        message: pumped('HTML Views Generated & Minified!'),
         onLast: true
     })));
 });
