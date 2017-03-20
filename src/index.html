@@ -10,79 +10,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 
-<body ng-app="materializeApp" ng-controller="BodyController">
- 	<div ui-view></div>
-    <!-- Dropdown Structure -->
+<body ng-app="materializeApp" ng-controller="bodyController">
     <nav>
-      <div class="nav-wrapper red">
-          <a href="#!" class="brand-logo center">Materialize App</a>
-          <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
-          <ul class="right">
-              <li>
-                <a href="#!">
-                  <i class="material-icons">search</i>
-                  </a>
-              </li>
-              <li>
-                <a class="dropdown-button" href="#!" data-activates="dropdown1">
-                  <i class="material-icons">more_vert</i>
-                  </a>
-              </li>
-          </ul>
-          <ul id="dropdown1" class="dropdown-content">
-              <li><a href="#!">Perfil</a></li>
-              <li><a href="#!">Limpiar mapa</a></li>
-              <li class="divider"></li>
-              <li><a href="#!">Acerca de</a></li>
-          </ul>
-          <ul id="slide-out" class="side-nav">
-              <li>
-                  <div class="userView">
-                      <div class="background">
-                          <img src="images/material-wall.jpg">
-                      </div>
-                      <a href="#!user"><img class="circle" src="images/me.jpg"></a>
-                      <a href="#!name"><span class="white-text name">Jorge Brunal</span></a>
-                      <a href="#!email"><span class="white-text email">diniremix@gmail.com</span></a>
-                  </div>
-              </li>
-              <li><a href="#!"><i class="material-icons">account_circle</i>Perfil</a></li>
-              <li><a href="#!"><i class="material-icons">supervisor_account</i>Gestion de Usuarios</a></li>
-              <li><a href="#!"><i class="material-icons">search</i>Consultas</a></li>
-              <li><a href="#!"><i class="material-icons">equalizer</i>Filtros</a></li>
-              <li><a href="#!"><i class="material-icons">terrain</i>Areas</a></li>
-              <li><a href="#!"><i class="material-icons">visibility</i>Visualizacion</a></li>
-              <li><a href="#!"><i class="material-icons">cloud_upload</i>Geo clientes</a></li>
-              <li><a href="#!"><i class="material-icons">layers_clear</i>Limpiar mapa</a></li>
-              <li><a href="#!"><i class="material-icons">location_on</i>Ubicacion actual</a></li>
-              <li><a href="#!"><i class="material-icons">cloud_download</i>Exportar</a></li>
-              <li><a href="#!"><i class="material-icons">settings_power</i>Salir</a></li>
-			<!--
-				<li>
-				<div class="divider"></div>
-				</li>
-				<li><a class="subheader">Subheader</a></li>
-				<li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-			-->
-          </ul>
-      </div>
+        <div class="nav-wrapper red" ng-include="'views/sidenav.html'">
+        </div>
     </nav>
-
-    <!-- Floating button for messages -->
-    <div class="fixed-action-btn" style="bottom: 200px; right: 24px;">
-        <a href="#modalMsg" class="btn-floating waves-effect waves-light btn-large red modal-trigger">
-            <i class="large material-icons">mode_edit</i>
-        </a>
-        <ul>
-            <li><a class="btn-floating red"><i class="material-icons">location_on</i></a></li>
-            <li><a class="btn-floating yellow darken-1"><i class="material-icons">search</i></a></li>
-            <li><a class="btn-floating green"><i class="material-icons">layers_clear</i></a></li>
-            <li><a class="btn-floating blue"><i class="material-icons">account_circle</i></a></li>
-        </ul>
-    </div>
-
+    <!-- Dropdown Structure -->
+    <div ui-view></div>
     <script type="text/javascript" src="js/vendor.min.js"></script>
     <script type="text/javascript" src="js/app.min.js"></script>
-
 </body>
+
 </html>
