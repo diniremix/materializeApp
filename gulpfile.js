@@ -28,14 +28,25 @@ var args        = require('yargs').argv,
 //--------------------------------------------------------------------------------
 // config
 var config      = require('./config.json');
+
 // vendor
 var vendor = {
   base: {
     source: require('./vendor.json'),
     csscomb: require('./.csscomb.json'),
-    name: 'vendor.js'
+    jsmin: 'vendor.js',
+    cssmin: 'vendor.css'
   }
 };
+
+var pkg = require('./package.json');
+
+var banner = '/*!\n' +
+      ' * ' + pkg.name + ' (' + pkg.homepage + ')\n' +
+      ' * Version ' + pkg.version + '\n' +
+      ' * Copyright ' + new Date().getFullYear() + ' ' + pkg.author.name + '\n' +
+      ' * Licensed under the ' + pkg.license + '\n' +
+      ' */\n';
 
 function pumped (achievement) {
   var exclamations = [
@@ -78,8 +89,6 @@ var paths={
 		}
 	}
 
-var pkg = require('./package.json');
-
 var isProduction = false;
 
 // styles sourcemaps
@@ -96,7 +105,9 @@ gulp.task('prod', function() {
   isProduction = true;
 });
 
-// Rerun the task when a file changes
+//-------------------------------------------------------------
+// WATCH TASK
+//-------------------------------------------------------------
 gulp.task('watch', function() {
     //log('Starting watch and LiveReload..');
     gutil.log(gutil.colors.green('Starting watch and LiveReload...'));
@@ -125,38 +136,45 @@ gulp.task('watch', function() {
         });
 });
 
+//-------------------------------------------------------------
+// HTML TASK
+//-------------------------------------------------------------
 gulp.task('html:index', function(done){
   return gulp.src(paths.index)
-    .pipe(plumber())
-    //.pipe( $.jade() )
     .pipe(plumber())
     .pipe(prettify(config.prettify))
     .pipe(plumber())
     .pipe( $.if(isProduction, $.htmlmin({collapseWhitespace: true}) ))
     .pipe(plumber())
-    .pipe(gulp.dest(config.destination.index));
+    .pipe(gulp.dest(config.destination.index))
+    .pipe( $.if(isProduction, notify({
+        message: pumped('HTML Generated & Minified!'),
+        onLast: true
+    })));
+});
+
+gulp.task('html:clean', function(done){
+  del(config.destination.index+'/index.html', { force: true })
+    .then(function () { done(); });
+});
+
+gulp.task('dist-html', function(done){
+  sequence('html:clean', 'html:index', function(){
+    done();
+  });
 });
 
 //-------------------------------------------------------------
 // VENDOR TASK
 //-------------------------------------------------------------
-gulp.task('vendor:base', function() {
-	var banner = '/*!\n' +
-          ' * ' + pkg.name + ' (' + pkg.homepage + ')\n' +
-          ' * Version ' + pkg.version + '\n' +
-          ' * Copyright ' + new Date().getFullYear() + ' ' + pkg.author.name + '\n' +
-          ' * Licensed under the ' + pkg.license + '\n' +
-          ' */\n';
-  gutil.log(gutil.colors.green('Copying base vendor assets...'));
-    return gulp.src(vendor.base.source)
+gulp.task('vendor:libs', function() {
+  gutil.log(gutil.colors.green('Copying base vendor libs...'));
+    return gulp.src(vendor.base.source.libs)
         .pipe(plumber())
-        .pipe($.expectFile(vendor.base.source))
+        .pipe($.expectFile(vendor.base.source.libs))
         .pipe(plumber())
-        //.pipe($.if( isProduction, $.uglify() ))
-        //.pipe(plumber())
-        .pipe($.concat(vendor.base.name))
+        .pipe($.concat(vendor.base.jsmin))
         .pipe(plumber())
-        //.pipe( $.if(isProduction,$.header(banner)))
         .pipe($.header(banner))
         .pipe(plumber())
         .pipe(rename({
@@ -170,15 +188,37 @@ gulp.task('vendor:base', function() {
         );
 });
 
-// DEV STYLES
-gulp.task('styles:app', function(done){
-  var banner = '/*!\n' +
-          ' * ' + pkg.name + ' (' + pkg.homepage + ')\n' +
-          ' * Version ' + pkg.version + '\n' +
-          ' * Copyright ' + new Date().getFullYear() + ' ' + pkg.author.name + '\n' +
-          ' * Licensed under the ' + pkg.license + '\n' +
-          ' */\n';
+gulp.task('vendor:styles', function() {
+  gutil.log(gutil.colors.green('Copying base vendor assets...'));
+    return gulp.src(vendor.base.source.styles)
+        .pipe(plumber())
+        .pipe($.expectFile(vendor.base.source.styles))
+        .pipe(plumber())
+        .pipe($.concat(vendor.base.cssmin))
+        .pipe(plumber())
+        .pipe($.header(banner))
+        .pipe(plumber())
+        .pipe(rename({
+          extname: '.min.css'
+        }))
+        .pipe(gulp.dest(config.destination.css))
+        .pipe(notify({
+            message: pumped('Vendor styles Generated & Minified!'),
+            onLast: true
+          })
+        );
+});
 
+gulp.task('dist-vendor', function(done){
+  sequence('scripts:clean', 'styles:clean', 'vendor:libs', 'vendor:styles', function(){
+    done();
+  });
+});
+
+//-------------------------------------------------------------
+// STYLES TASK
+//-------------------------------------------------------------
+gulp.task('styles:app', function(done){
   return gulp.src(paths.styles.css)
     .pipe(plumber())
     .pipe(autoprefixer(config.autoprefixerBrowsers))
@@ -200,15 +240,103 @@ gulp.task('styles:app', function(done){
     );
 });
 
-gulp.task('dist-css', function(done){
-  //sequence('styles:clean', 'styles:site', function(){
-  sequence('styles:app', function(){
-    done();
+gulp.task('styles:clean', function(done){
+  del(config.destination.css, { force: true })
+    .then(function () { done(); });
+});
 
-    notifaker(pumped('CSS Generated!'));
+gulp.task('dist-styles', function(done){
+  sequence('styles:clean', 'styles:app', function(){
+    done();
   });
 });
 
+//-------------------------------------------------------------
+// SCRIPTS TASK
+//-------------------------------------------------------------
+gulp.task('scripts:apps', function(done){
+	gutil.log(gutil.colors.green('Generating scripts...'));
+  var jsFilter = $.filter('**/*.js',{restore: true});
+
+  return gulp.src(paths.scripts)
+    .pipe(plumber())
+    .pipe($.jsvalidate())
+    .pipe(plumber())
+    .pipe( $.if( useSourceMaps, $.sourcemaps.init() ))
+    .pipe(plumber())
+    .pipe($.concat( config.source.js.name ))
+    .pipe(plumber())
+    .pipe($.ngAnnotate())
+    .pipe(plumber())
+    .pipe( $.if(isProduction, $.uglify({preserveComments:'some'}) ))
+    .pipe(plumber())
+   	.pipe( $.if( useSourceMaps, $.sourcemaps.write() ))
+    .pipe( $.if(isProduction, $.header(banner)))
+	.pipe(rename({
+		extname: '.min.js'
+    }))
+    .pipe(gulp.dest(config.destination.js))
+    .pipe(notify({
+        message: pumped('JS Generated & Minified!'),
+        onLast: true
+      })
+    );
+});
+
+gulp.task('scripts:clean', function(done){
+  del(config.destination.js, { force: true })
+    .then(function () { done(); });
+});
+
+gulp.task('dist-js', function(done){
+  sequence('scripts:clean', 'scripts:apps', function(){
+    done();
+  });
+});
+
+//-------------------------------------------------------------
+// FONTS TASK
+//-------------------------------------------------------------
+gulp.task('fonts', function() {
+	gutil.log(gutil.colors.blue('Copying fonts...'));
+		return gulp.src(vendor.base.source.fonts+'/**/*.*')
+			.pipe($.expectFile(vendor.base.source.fonts+'/**/*.*'))
+			.pipe(gulp.dest(config.destination.fonts));
+});
+
+//-------------------------------------------------------------
+// IMAGES TASK
+//-------------------------------------------------------------
+gulp.task('images', function() {
+	gutil.log(gutil.colors.blue('Copying images...'));
+		return gulp.src(config.source.images+'/**/*.*')
+			.pipe($.expectFile(config.source.images+'/**/*.*'))
+			.pipe(gulp.dest(config.destination.images));
+});
+
+//-------------------------------------------------------------
+// MAIN TASK
+//-------------------------------------------------------------
+gulp.task('dist-clean', function(done){
+  del(config.destination.index, { force: true })
+    .then(function () { done(); });
+});
+
+gulp.task('default', function(){
+  gutil.log(gutil.colors.blue('================================'));
+  gutil.log(gutil.colors.blue('Welcome, use build task instead!'));
+  gutil.log(gutil.colors.blue('================================'));
+});
+
+gulp.task('build', function(done){
+  sequence('dist-clean', 'dist-vendor', 'dist-html', 'dist-styles', 'dist-js', 'fonts', 'images', function(){
+    done();
+  });
+});
+
+//-------------------------------------------------------------
+// WEBSERVER TASK
+//-------------------------------------------------------------
 gulp.task('webserver', ['watch'], function() {
     connect.server({
         livereload: true,
