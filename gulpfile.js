@@ -315,6 +315,43 @@ gulp.task('images', function() {
 });
 
 //-------------------------------------------------------------
+// GAE-DEPLOY TASK
+//-------------------------------------------------------------
+gulp.task('deploy', ['update-yaml', 'update-phpini', 'gae-deploy']);
+
+// copy app.yaml from root folder into the dist folder
+gulp.task('update-yaml', function() {
+	gutil.log(gutil.colors.blue('Updating yaml configuration...'));
+    return gulp.src('app.yaml')
+		.pipe(plumber())
+        .pipe($.expectFile('app.yaml'))
+		.pipe(plumber())
+        .pipe(gulp.dest(config.destination.index));
+});
+
+// copy php.ini from root folder into the dist folder
+gulp.task('update-phpini', function() {
+	gutil.log(gutil.colors.blue('Updating php ini configuration...'));
+	return gulp.src('php.ini')
+		.pipe(plumber())
+		.pipe($.expectFile('php.ini'))
+		.pipe(plumber())
+		.pipe(gulp.dest(config.destination.index));
+});
+
+//deploy on GAE using dist/app.yaml
+gulp.task('gae-deploy', ['update-yaml'], function () {
+	gutil.log(gutil.colors.blue('Deploying on GAE server......'));
+	return gulp.src(config.destination.gae)
+		.pipe(plumber())
+		.pipe($.expectFile(config.destination.gae))
+		.pipe(plumber())
+		//alternative using version
+		//.pipe(gae('appcfg.py', ['update'], {version: 'beta'}));
+		.pipe($.gae('appcfg.py', ['update']));
+});
+
+//-------------------------------------------------------------
 // MAIN TASK
 //-------------------------------------------------------------
 gulp.task('dist-clean', function(done){
