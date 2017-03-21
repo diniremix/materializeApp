@@ -4,7 +4,7 @@
 
     function settingsRun($rootScope, $state, $log, $localStorage, APP_CONFIG) {
         $rootScope.app = {
-            name: 'MaterializeApp',
+            name: 'MaterializeApp2',
             description: ' - Materialize App',
             fullname: 'MaterializeApp',
             year: (new Date).getFullYear(),
