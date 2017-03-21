@@ -8,7 +8,6 @@
 	"js": {
 		"main":"src/js",
 		"modules":"src/js/modules",
-		"routers":"src/js/routers",
 		"name":"app.js"
 	},
 	"styles": {

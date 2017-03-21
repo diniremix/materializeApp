@@ -81,9 +81,6 @@ var paths={
 			config.source.js.modules + '/**/*.module.js',
 			config.source.js.modules + '/**/*.js',
 
-			config.source.js.routers + '/**/*.module.js',
-			config.source.js.routers + '/**/*.js',
-
 			config.source.shared.js + '/**/*.js'
 		],
 		styles:{
@@ -183,7 +180,7 @@ gulp.task('html:clean', function(done){
 });
 
 gulp.task('dist-html', function(done){
-  sequence('html:clean', 'html:index', function(){
+  sequence('html:clean', 'html:index', 'html:views', function(){
     done();
   });
 });
@@ -234,7 +231,7 @@ gulp.task('vendor:styles', function() {
 });
 
 gulp.task('dist-vendor', function(done){
-  sequence('scripts:clean', 'styles:clean', 'vendor:libs', 'vendor:styles', function(){
+  sequence('vendor:libs', 'vendor:styles', function(){
     done();
   });
 });
@@ -390,7 +387,7 @@ gulp.task('default', function(){
 });
 
 gulp.task('build', function(done){
-  sequence('dist-clean', 'dist-vendor', 'dist-html', 'dist-styles', 'dist-js', 'fonts', 'images', function(){
+  sequence('dist-clean','dist-html','dist-js','dist-styles','dist-vendor','fonts','images', function(){
     done();
   });
 });
