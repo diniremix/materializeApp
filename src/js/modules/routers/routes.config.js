@@ -9,13 +9,18 @@
             url: '/app',
             abstract: true,
             templateUrl: helper.basepath('app.html')
-            //resolve: helper.resolveFor('fastclick', 'screenfull', 'classyloader', 'toaster')
         }).state('app.dash', {
             url: '/dash',
             title: 'Dashboard',
-            templateUrl: helper.basepath('floatbutton.html')
+            templateUrl: helper.basepath('dash.html')
             //controller: 'DashController',
-            //controllerAs: 'DashCtrl',
+            //controllerAs: 'DashCtrl'
+        }).state('app.floatbtn', {
+            url: '/floatbuttons',
+            title: 'Float Button',
+            templateUrl: helper.basepath('floatbutton.html'),
+            //controller: 'floatBtnController',
+            //controllerAs: 'floatBtnCtrl'
         });
     }
 
