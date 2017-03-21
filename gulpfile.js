@@ -21,7 +21,7 @@ var args        = require('yargs').argv,
 		minify       = require('gulp-minify-css'),
 		server_port = 9876,
 		// a delay before triggering browser reload to ensure everything is compiled
-		livereloadDelay = 1500;
+		livereloadDelay = 2000;
 
 //--------------------------------------------------------------------------------
 // variables
