@@ -344,7 +344,8 @@
                     element.sideNav({
                         menuWidth: (angular.isDefined(scope.menuwidth)) ? parseInt(scope.menuwidth, 10) : undefined,
                         edge: attrs.sidenav ? attrs.sidenav : "left",
-                        closeOnClick: (angular.isDefined(scope.closeonclick)) ? scope.closeonclick == "true" : undefined
+                        closeOnClick: (angular.isDefined(scope.closeonclick)) ? scope.closeonclick == "true" : undefined,
+                        draggable: (angular.isDefined(scope.draggable)) ? scope.draggable == true : false
                     });
                 }
             };
