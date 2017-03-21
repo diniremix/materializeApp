@@ -7,5 +7,6 @@ angular.module('app.core', [
 	'oc.lazyLoad',
 	'ngSanitize',
 	'ngResource',
-	'ngAria'
+	'ngAria',
+	'ui.materialize'
 ]);
