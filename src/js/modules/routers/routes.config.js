@@ -21,6 +21,13 @@
             templateUrl: helper.basepath('floatbutton.html'),
             //controller: 'floatBtnController',
             //controllerAs: 'floatBtnCtrl'
+        }).state('app.map', {
+            url: '/map',
+            title: 'map demo',
+            templateUrl: helper.basepath('map.html'),
+            controller: 'mapController',
+            controllerAs: 'mapCtrl',
+            resolve: helper.resolveFor('Maps')
         });
     }
 
