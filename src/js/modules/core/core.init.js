@@ -29,9 +29,11 @@
 
 		$rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error){
 			event.preventDefault();
-			$log.error('state error', toState);
+			$log.error('state error', toState.url);
+			$log.error(error);
 
 			if (APP_CONFIG.DEBUG){
+				$log.error('from', fromState.name, '[', fromState.url, ']');
 				$log.error(error);
 			}
 		});
