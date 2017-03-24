@@ -13,7 +13,7 @@
         "bower_components/materialize/dist/js/materialize.min.js",
         "bower_components/moment/min/moment.min.js",
         "bower_components/moment/locale/es.js",
-        "src/libs/angular-materialize.js"
+        "src/libs/angular-materialize/angular-materialize.js"
     ],
     "styles": [
         "bower_components/materialize/dist/css/materialize.min.css"
