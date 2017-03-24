@@ -8,7 +8,8 @@
         $stateProvider.state('app', {
             url: '/app',
             abstract: true,
-            templateUrl: helper.basepath('app.html')
+            templateUrl: helper.basepath('app.html'),
+            resolve: helper.resolveFor('fastclick')
         }).state('app.dash', {
             url: '/dash',
             title: 'Dashboard',
