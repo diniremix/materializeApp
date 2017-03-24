@@ -8,8 +8,9 @@
 				</a>
 				<ul>
 					<li><a ng-click="removeMarkers()" class="btn-floating green"><i class="material-icons">layers_clear</i></a></li>
+					<li><a class="btn-floating yellow darken-3"><i class="material-icons">search</i></a></li>
 					<li><a ng-click="getCurrentPos()" class="btn-floating red"><i class="material-icons">location_on</i></a></li>
-					<li><a class="btn-floating yellow darken-1"><i class="material-icons">search</i></a></li>
+					<li><a complete="modalZoom()" data-target='zoomodal' data-dismissible="false" modal class="btn-floating blue"><i class="material-icons">zoom_in</i></a></li>
 				</ul>
 			</div>
             <div id="map-canvas" name="map-canvas" data-lat="40.747688" data-lng="-74.004142">
@@ -18,3 +19,26 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Zoom -->
+<div id="zoomodal" class="modal">
+    <div class="modal-content">
+        <div class="row">
+            <div class="col s4 center-align">
+                <p></p>
+                <p><strong>Nivel de Zoom: {{value||12}}</strong></p>
+            </div>
+            <div class="col s8 center-align">
+                <p class="range-field">
+                    <input type="range" ng-model="value" id="zoomer" name="zoomer" min="1" max="20" />
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" id="action" name="action" class="modal-action modal-close btn btn-small waves-effect waves-light blue darken-1">Aplicar
+            <i class="material-icons right">refresh</i>
+        </button>
+    </div>
+</div>
+<!-- Modal Zoom -->
