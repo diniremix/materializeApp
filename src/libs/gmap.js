@@ -87,6 +87,18 @@ var Anuket = (function() {
 		//layer.setMap(AnuketMap)
 	} //showLayer
 
+	fn.setZoom= function (zoom) {
+		return AnuketMap.setZoom(zoom);
+	}
+
+	fn.getZoom= function (zoom) {
+		return AnuketMap.getZoom();
+	}
+
+	fn.getObjectMap= function (zoom) {
+		return AnuketMap;
+	}
+
 	function hideLayer(layer) {
 		//layer.setMap(null)
 		AnuketMap.removeLayer(layer)
@@ -199,16 +211,12 @@ var Anuket = (function() {
 			el: _divMap,
 			lat: latlong.lat,
 			lng: latlong.lng,
-			zoomControl: true,
 			zoom: theZoom,
-			zoomControlOpt: {
-				style: "SMALL",
-				position: "TOP_LEFT"
-			},
+			zoomControl: false,
+			streetViewControl:false,
 			panControl: true,
-			streetViewControl: false,
+			overviewMapControl: false,
 			mapTypeControl: false,
-			overviewMapControl: false
 		});
 		fn.addMarker(latlong, false, null);
 	};
