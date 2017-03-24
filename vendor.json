@@ -11,6 +11,8 @@
         "bower_components/oclazyload/dist/ocLazyLoad.min.js",
         "bower_components/angular-aria/angular-aria.min.js",
         "bower_components/materialize/dist/js/materialize.min.js",
+        "bower_components/moment/min/moment.min.js",
+        "bower_components/moment/locale/es.js",
         "src/libs/angular-materialize.js"
     ],
     "styles": [
