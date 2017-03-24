@@ -13,6 +13,12 @@
 			Anuket.removeMarkers();
         };
 
+		$scope.modalZoom= function(){
+			var zoom= parseInt($scope.value)||12;
+			$log.info('ajustando zoom...', zoom);
+			Anuket.setZoom(zoom);
+		};
+
         $scope.getCurrentPos= function(){
 			Anuket.getCurrentPosition();
         };
