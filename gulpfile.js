@@ -83,6 +83,9 @@ var paths={
 
 			config.source.shared.js + '/**/*.js'
 		],
+		libs:[
+			config.source.libs.index+'/**/*.*'
+		],
 		styles:{
 			css: config.source.styles.css + '/**/*.css',
 			fonts: config.source.styles.fonts + '/**/*.*',
@@ -120,6 +123,8 @@ gulp.task('watch', function() {
     gulp.watch(paths.views, ['html:views']);
     //watch and build scripts
     gulp.watch(paths.scripts, ['scripts:apps']);
+    //watch and build libs scripts
+    gulp.watch(paths.libs, ['scripts:libs']);
     //watch and build styles
     gulp.watch(paths.styles.css, ['styles:app']);
     gulp.watch(paths.styles.fonts, ['fonts']);
@@ -129,6 +134,7 @@ gulp.task('watch', function() {
 		paths.index,
 		paths.views,
 		paths.scripts,
+		paths.libs,
 		paths.styles.css,
 		paths.styles.fonts
     );
@@ -304,13 +310,43 @@ gulp.task('scripts:apps', function(done){
     );
 });
 
+gulp.task('scripts:libs', function(done){
+	gutil.log(gutil.colors.green('Generating libs scripts...'));
+	var jsFilter = $.filter('**/*.js',{restore: true});
+
+	return gulp.src(paths.libs)
+		.pipe(plumber())
+		.pipe($.expectFile(paths.libs))
+		.pipe(plumber())
+		.pipe(jsFilter)
+		.pipe($.jsvalidate())
+		.pipe(plumber())
+		.pipe( $.if( useSourceMaps, $.sourcemaps.init() ))
+		.pipe(plumber())
+		.pipe($.ngAnnotate())
+		.pipe(plumber())
+		.pipe( $.if(isProduction, $.uglify({preserveComments:'some'}) ))
+		.pipe(plumber())
+		.pipe( $.if( useSourceMaps, $.sourcemaps.write() ))
+		.pipe(plumber())
+		.pipe( $.if(isProduction, $.header(banner)))
+		.pipe(plumber())
+		.pipe(jsFilter.restore)
+		.pipe(gulp.dest(config.destination.libs))
+		.pipe(notify({
+		    message: pumped('JS Generated & Minified!'),
+		    onLast: true
+		})
+	);
+});
+
 gulp.task('scripts:clean', function(done){
   del(config.destination.js, { force: true })
     .then(function () { done(); });
 });
 
 gulp.task('dist-js', function(done){
-  sequence('scripts:clean', 'scripts:apps', function(){
+  sequence('scripts:clean', 'scripts:apps', 'scripts:libs', function(){
     done();
   });
 });
